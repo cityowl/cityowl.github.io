@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Dashboard</title>
+    <meta name="description" content="Yandex Technical Assignment">
+    <meta name="author" content="Yandex Technical Assignment">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- FONTS -->
+    <link href="./build/fonts/source-sans-pro.css" rel="stylesheet" type="text/css">
+
+    <!-- CSS FRAMEWORK SKELETON -->
+    <link href="./build/css-framework/index.min.css" rel="stylesheet" type="text/css">
+
+    <!-- PRODUCTION CSS -->
+    <link href="./build/css/production.min.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<header>
+    <div class="row">
+        <div class="twelwe column">
+            <button data-bind="click: addIssue">Add issue</button>
+        </div>
+    </div>
+</header>
+
+<main>
+    <div class="row" data-bind="template: { name: 'issues', foreach: states }"></div>
+</main>
+
+<ul data-bind="foreach: modals">
+    <div class="modal" data-bind="visible: isModalOpened">
+        <div class="modal-content">
+            <div class="modal-title" data-bind="text: title"></div>
+            <div class="modal-body" data-bind="template: id"></div>
+            <div class="modal-bottom" data-bind="foreach: buttons">
+                <button data-bind="text: btnName, attr: {class: btnClass}, click: onClick"></button>
+            </div>
+        </div>
+        <div class="hide" data-bind="click: close"></div>
+    </div>
+</ul>
+
+<!--TEMPLATES-->
+<script type="text/html" id="add-issue">
+    <form>
+        <div class="row">
+            <div class="twelve columns" data-bind="css: { error: issue_name.hasError }">
+                <label for="issue_name">Name</label>
+                <input data-bind="value: issue_name" class="u-full-width" type="text" id="issue_name">
+                <span data-bind='visible: issue_name.hasError, text: issue_name.validationMessage'></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="twelve columns" data-bind="css: { error: issue_desc.hasError }">
+                <label for="issue_desc">Description</label>
+                <textarea data-bind="value: issue_desc" class="u-full-width" placeholder="Enter description here..." id="issue_desc"></textarea>
+                <span data-bind='visible: issue_desc.hasError, text: issue_desc.validationMessage'></span>
+            </div>
+        </div>
+    </form>
+</script>
+
+<script type="text/html" id="issues">
+    <div class="three-clear columns">
+        <div class="wrapper" data-bind="dropZone: { accepts: accepts, drop: drop}, attr: { 'data-target': name}">
+            <div class="twelwe column title" data-bind="text: name"></div>
+            <ul data-bind="foreach: collection">
+                <li>
+                    <div class="issue" data-bind="dragZone: { name: $parent.name }">
+                        <div class="row row-title">
+                            <div class="eight columns" data-bind="text: title"></div>
+                            <div class="four columns">
+                                <a href="#" class="button button-sm u-pull-right" data-bind="click: $parent.remove">Remove</a>
+                            </div>
+                        </div>
+                        <div class="row row-body">
+                            <div class="twelwe column">
+                                <div class="desc" data-bind="text: desc"></div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</script>
+
+<!-- KNOCKOUT -->
+<script src="./build/js-framework/knockout.js"></script>
+
+<!-- PLUGINS -->
+<script src="./build/js-framework/knockout.dragdrop.js"></script>
+
+<!-- PRODUCTION JS -->
+<script src="./build/js/production.min.js"></script>
+
+</body>
+</html>
