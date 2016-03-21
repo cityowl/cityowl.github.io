@@ -18,6 +18,11 @@
 </head>
 <body>
 
+<div id="loader" class="loader">
+    <div class="spin"><div></div><div></div><div></div></div>
+    <div class="hide"></div>
+</div>
+
 <header>
     <div class="row">
         <div class="twelwe column">
@@ -86,6 +91,12 @@
             </ul>
         </div>
     </div>
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function(event) {
+        document.getElementById('loader').className = 'nodisplay';
+    });
 </script>
 
 <!-- KNOCKOUT -->

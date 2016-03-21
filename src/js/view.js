@@ -9,7 +9,7 @@
 
         this.states = Model.getCollection();
 
-        this.modals = ko.observableArray();
+        this.modals = ko.observableArray([]);
 
         for(var i = 0; i< this.states.length; i++) {
             var _state = this.states[i].name;
@@ -37,7 +37,6 @@
 
                 Storage.setJson(issue.type, _this.states[_index].collection());
             };
-
         }
 
         /**
@@ -78,7 +77,6 @@
             }
         };
     }
-
 
     ko.applyBindings(new View());
 })(Model);
